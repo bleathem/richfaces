@@ -108,7 +108,7 @@ import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
 import org.richfaces.resource.StaticResourceLibrary;
 import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
+import org.richfaces.resource.external.DefaultExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.services.DependencyInjectionServiceImpl;
@@ -395,7 +395,7 @@ public class CoreDeployment extends Deployment {
             .addClasses(Cache.class);
 
         withService(ExternalStaticResourceFactory.class, ExternalStaticResourceFactoryImpl.class);
-        withService(ExternalResourceTracker.class, ExternalResourceTrackerWrapper.class);
+        withService(ExternalResourceTracker.class, DefaultExternalResourceTracker.class);
 
         facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
 

@@ -47,6 +47,7 @@ import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
 import category.Smoke;
 
@@ -54,7 +55,7 @@ import category.Smoke;
 @WarpTest
 @RunAsClient
 @Category(Smoke.class)
-public class ITResourceMapping {
+public class ITResourceMapperService {
 
     @Drone
     WebDriver driver;
@@ -66,6 +67,13 @@ public class ITResourceMapping {
     public static WebArchive createDeployment() {
 
         FrameworkDeployment deployment = new FrameworkDeployment(null);
+
+        PropertiesAsset staticResourceMapping = new PropertiesAsset()
+                .key(":original.css").value("relocated.css")
+                .key(":part1.css").value("aggregated.css")
+                .key(":part2.css").value("aggregated.css")
+                .key("part1.js").value("aggregated.js")
+                .key("part2.js").value("aggregated.js");
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
