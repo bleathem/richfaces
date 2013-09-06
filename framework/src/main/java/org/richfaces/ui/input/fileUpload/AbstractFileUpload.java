@@ -23,6 +23,7 @@ package org.richfaces.ui.input.fileUpload;
 
 import java.util.Map;
 
+import javax.el.MethodExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -38,6 +39,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 
 /**
  * <p> The &lt;r:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
@@ -45,10 +51,10 @@ import org.richfaces.renderkit.RenderKitUtils;
  *
  * @author Konstantin Mishin
  */
-@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
+@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractFileUpload extends UIComponentBase {
+public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 
@@ -196,6 +202,14 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             component.getAttributes().put("resource", resourcePath);
         }
     }
+
+    /**
+     * A listener function on the server side after each file is uploaded.
+     * The listener should process files as required, such as storing them in the session/db/filesystem/ directory.
+     * The component itself does not store uploaded files, so if the listener is not implemented they are not stored anywhere
+     */
+    @Attribute
+    public abstract MethodExpression getFileUploadListener();
 
     /**
      * <p>

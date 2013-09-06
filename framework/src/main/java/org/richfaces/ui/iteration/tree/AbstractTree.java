@@ -68,12 +68,20 @@ import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.model.TreeNode;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.ImmediateProps;
+import org.richfaces.ui.attribute.SequenceProps;
+import org.richfaces.ui.attribute.TreeCommonProps;
+import org.richfaces.ui.attribute.TreeProps;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.iteration.UIDataAdaptor;
-import org.richfaces.ui.iteration.tree.AbstractTreeNode.PropertyKeys;
 import org.richfaces.util.MessageUtil;
 
 import com.google.common.base.Predicate;
@@ -89,12 +97,11 @@ import com.google.common.collect.Maps;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handlerClass = TreeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
-        "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",
-        "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
+@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY,
+        tag = @Tag(name = "tree", handlerClass = TreeHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"))
 // TODO add rowData caching for wrapper events
-public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder,
-        TreeSelectionChangeSource, TreeToggleSource {
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource, AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, SequenceProps, TreeProps, TreeCommonProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";
@@ -148,6 +155,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return treeRange;
     }
 
+    /**
+     * Points to the data model
+     */
     @Attribute
     public abstract Object getValue();
 

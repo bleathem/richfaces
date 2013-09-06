@@ -32,6 +32,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.EventsRowProps;
+import org.richfaces.ui.attribute.IterationProps;
+import org.richfaces.ui.attribute.RowsProps;
+import org.richfaces.ui.attribute.SequenceProps;
+import org.richfaces.ui.attribute.StyleProps;
 import org.richfaces.ui.iteration.UIDataTableBase;
 import org.richfaces.ui.iteration.column.Column;
 
@@ -42,9 +47,11 @@ import org.richfaces.ui.iteration.column.Column;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets), attributes = {
-        "style-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-row-props.xml" })
-public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE,
+        family = AbstractCollapsibleSubTable.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
+        tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets))
+public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps, RowsProps, StyleProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String MODE_AJAX = "ajax";

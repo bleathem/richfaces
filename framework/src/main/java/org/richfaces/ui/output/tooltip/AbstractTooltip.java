@@ -29,6 +29,14 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.EventsPopupsBeforeProps;
+import org.richfaces.ui.attribute.EventsPopupsProps;
+import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.PopupsProps;
+import org.richfaces.ui.attribute.PositionProps;
 import org.richfaces.ui.common.AbstractDivPanel;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
@@ -50,10 +58,8 @@ import java.io.IOException;
  *
  * @author amarkhel
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
-        "core-props.xml", "tooltip-props.xml", "ajax-props.xml", "i18n-props.xml", "position-props.xml",
-        "events-mouse-props.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })
-public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"))
+public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder, AjaxProps, CoreProps, EventsMouseProps, EventsPopupsProps, EventsPopupsBeforeProps, I18nProps, PopupsProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
     public static final String CONTENT_META_COMPONENT_ID = "content";
@@ -161,6 +167,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
      */
     @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
+
+    @Attribute(hidden = true)
+    public abstract Object getExecute();
 
     // ------------------------------------------------ Html Attributes
 

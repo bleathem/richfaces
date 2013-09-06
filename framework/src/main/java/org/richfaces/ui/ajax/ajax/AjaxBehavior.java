@@ -44,6 +44,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.behavior.ClientBehavior;
 import org.richfaces.util.Sets;
 
@@ -54,14 +55,14 @@ import org.richfaces.util.Sets;
  * </p>
  * @author Anton Belevich
  */
-@JsfBehavior(id = "org.richfaces.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets),
-        attributes = { "ajax-props.xml", "ajaxBehavior-prop.xml" })
-public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
+@JsfBehavior(id = "org.richfaces.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets))
+public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, AjaxProps {
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.Ajax";
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet.of(ClientBehaviorHint.SUBMITTING));
 
     enum PropertyKeys {
         data,
+        event,
         execute,
         onbeforedomupdate,
         onbegin,
@@ -72,6 +73,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         status,
         disabled,
         limitRender,
+        listener,
         immediate,
         bypassUpdates,
         onbeforesubmit
@@ -150,6 +152,32 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
     public void setData(Object data) {
         getStateHelper().put(PropertyKeys.data, data);
+    }
+
+    /**
+     * Name of JavaScript event property (click, change, etc.) of parent component that triggers the behavior.
+     * If the event attribute is not defined, the behavior is triggered on the event that normally provides
+     * interaction behavior for the parent component
+     */
+    @Attribute
+    public String getEvent() {
+        return (String) getStateHelper().eval(PropertyKeys.event);
+    }
+
+    public void setEvent(String event) {
+        getStateHelper().put(PropertyKeys.event, event);
+    }
+
+    /**
+     * Method expression referencing a method that will be called when an AjaxBehaviorEvent has been broadcast for the listener.
+     */
+    @Attribute
+    public MethodExpression getListener() {
+        return (MethodExpression) getStateHelper().eval(PropertyKeys.listener);
+    }
+
+    public void setListener(MethodExpression listener) {
+        getStateHelper().put(PropertyKeys.listener, listener);
     }
 
     /**

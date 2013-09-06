@@ -36,6 +36,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
 import org.richfaces.ui.attribute.AccesskeyProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
+import org.richfaces.ui.attribute.I18nProps;
 
 /**
  * <p>
@@ -45,9 +49,8 @@ import org.richfaces.ui.attribute.AccesskeyProps;
  * @author shura
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "i18n-props.xml"})
-public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps {
+        renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
+public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
 
